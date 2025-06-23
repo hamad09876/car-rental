@@ -1,0 +1,310 @@
+/* VIP Color Scheme */
+:root {
+  --vip-gold: #d4af37;
+  --vip-dark: #0f172a;
+  --vip-light: #f8fafc;
+  --vip-blue: #1e3a8a;
+  --vip-gradient: linear-gradient(135deg, 
+    rgba(15, 23, 42, 1) 0%, 
+    rgba(30, 58, 138, 1) 50%, 
+    rgba(15, 23, 42, 1) 100%);
+}
+
+/* Base Styles */
+.vip-home-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vip-gradient);
+  font-family: 'Arial', sans-serif;
+  padding: 2rem;
+  color: var(--vip-light);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated Background Elements */
+.vip-home-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(212, 175, 55, 0.1) 0%,
+    transparent 70%
+  );
+  animation: rotate 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.vip-content {
+  max-width: 800px;
+  padding: 3rem;
+  background-color: rgba(15, 23, 42, 0.9);
+  border-radius: 20px;
+  border: 2px solid var(--vip-gold);
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(2px);
+}
+
+/* Typography */
+.vip-heading {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.vip-highlight {
+  color: var(--vip-gold);
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+}
+
+.vip-subtitle {
+  font-size: 1.5rem;
+  color: var(--vip-gold);
+  margin-bottom: 3rem;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Buttons */
+.vip-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  align-items: center;
+}
+
+.vip-button {
+  padding: 1.2rem 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 300px;
+}
+
+.vip-button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 45%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 55%
+  );
+  transform: rotate(30deg);
+  transition: all 0.3s;
+}
+
+.vip-button:hover::after {
+  left: 100%;
+}
+
+.client-login {
+  background: linear-gradient(135deg, var(--vip-gold) 0%, #f1c40f 100%);
+  color: var(--vip-dark);
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
+}
+
+.client-login:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.7);
+}
+
+/* Admin Portal Corner Button */
+.admin-portal-corner {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 0.8rem 1.5rem;
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--vip-gold);
+  border: 2px solid var(--vip-gold);
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+}
+
+.admin-portal-corner:hover {
+  background: rgba(212, 175, 55, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+/* Features */
+.vip-features {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 10px;
+  padding: 1.5rem 1rem;
+  min-width: 150px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  background: rgba(212, 175, 55, 0.2);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+}
+
+/* Support Link Styling */
+.support-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.feature-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--vip-gold);
+}
+
+/* Ripple Effect */
+.feature-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.feature-card:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* WhatsApp Support Button */
+.whatsapp-support-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 1rem 2rem;
+  margin-top: 2rem;
+  background-color: #25D366;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-support-button:hover {
+  background-color: #128C7E;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.whatsapp-icon {
+  font-size: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .vip-heading {
+    font-size: 2.5rem;
+  }
+  
+  .vip-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .vip-content {
+    padding: 2rem 1.5rem;
+  }
+  
+  .vip-button {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .vip-features {
+    gap: 1rem;
+  }
+  
+  .feature-card {
+    padding: 1rem 0.5rem;
+    min-width: 120px;
+  }
+  
+  .admin-portal-corner {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    top: 15px;
+    right: 15px;
+  }
+  
+  .whatsapp-support-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}

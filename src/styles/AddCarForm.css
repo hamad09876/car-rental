@@ -1,0 +1,168 @@
+/* VIP Add Car Form Styling */
+.vip-form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #f8f5f0 0%, #ffffff 100%);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0d6c9;
+  font-family: 'Poppins', sans-serif;
+}
+
+.vip-form-heading {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  color: #1a365d;
+  position: relative;
+}
+
+.vip-form-heading::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #d4af37, #b8860b);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.vip-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.vip-form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #1a365d;
+  font-size: 1rem;
+}
+
+.vip-form-input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid #e0d6c9;
+  background-color: #f9f7f3;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.vip-form-input:focus {
+  outline: none;
+  border-color: #b8860b;
+  box-shadow: 0 0 0 2px rgba(180, 140, 40, 0.2);
+}
+
+.vip-form-select {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid #e0d6c9;
+  background-color: #f9f7f3;
+  font-size: 1rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 1em;
+}
+
+.vip-image-upload {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px dashed #e0d6c9;
+  background-color: #f9f7f3;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 1rem;
+}
+
+.vip-image-upload:hover {
+  border-color: #b8860b;
+  background-color: #f9f4e8;
+}
+
+.vip-image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 1.5rem;
+}
+
+.vip-image-preview {
+  width: 120px;
+  height: 90px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #e0d6c9;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.vip-remove-image {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.vip-submit-button {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(45deg, #d4af37, #b8860b);
+  color: #1a1a2e;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(180, 140, 40, 0.3);
+  transition: all 0.3s;
+  margin-top: 1rem;
+}
+
+.vip-submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(180, 140, 40, 0.4);
+}
+
+.vip-submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .vip-form-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .vip-form-heading {
+    font-size: 1.5rem;
+  }
+  
+  .vip-image-preview {
+    width: 100px;
+    height: 75px;
+  }
+}
