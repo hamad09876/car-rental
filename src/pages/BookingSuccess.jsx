@@ -33,14 +33,14 @@ const BookingSuccess = () => {
   try {
     if (booking._id && booking.isPayNow) {
       // ✅ Update existing booking
-      await axios.put(`http://localhost:5000/api/bookings/${booking._id}`, {
+      await axios.put(`https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/bookings/${booking._id}`, {
         ...bookingData,
         paymentStatus: "paid"
       });
       toast.success("🎉 Payment Confirmed!");
     } else {
       // ✅ New booking
-      await axios.post("http://localhost:5000/api/bookings", bookingData);
+      await axios.post("https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/bookings", bookingData);
       toast.success("🎉 Booking Confirmed!");
     }
 

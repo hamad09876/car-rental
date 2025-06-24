@@ -14,8 +14,8 @@ const Cars = () => {
     const fetchData = async () => {
       try {
         const [carsRes, bookingsRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/cars"),
-          axios.get("http://localhost:5000/api/bookings"),
+          axios.get("https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/cars"),
+          axios.get("https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/bookings"),
         ]);
 
         setCars(carsRes.data);

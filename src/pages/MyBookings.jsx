@@ -25,7 +25,7 @@ const MyBookings = () => {
     }
 
     axios
-      .get("http://localhost:5000/api/bookings")
+      .get("https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/bookings")
       .then((res) => {
         const userBookings = res.data.filter(
           (b) => b.userEmail === currentUser.email
@@ -49,7 +49,7 @@ const MyBookings = () => {
     if (!confirm) return;
 
     try {
-      const res = await axios.delete(`http://localhost:5000/api/bookings/${_id}`);
+      const res = await axios.delete(`https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/bookings/${_id}`);
       if (res.status === 200) {
         setBookings((prev) => prev.filter((b) => b._id !== _id));
         toast.success("Booking cancelled successfully", { autoClose: 3000 });

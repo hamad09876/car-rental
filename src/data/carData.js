@@ -1,6 +1,6 @@
 // src/data/carData.js
-const API_URL = "http://localhost:5000/api/cars";
-const BOOKINGS_URL = "http://localhost:5000/api/bookings";
+const API_URL = "https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/cars";
+const BOOKINGS_URL = "https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/bookings";
 
 // -------------------- CAR APIs --------------------
 

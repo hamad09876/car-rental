@@ -82,7 +82,7 @@ const EditCarForm = () => {
         images: car.images.filter((img) => img.trim() !== ""),
       };
 
-      await axios.put(`http://localhost:5000/api/cars/${id}`, updatedCar);
+      await axios.put(`https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/cars/${id}`, updatedCar);
 
       alert("✅ Car updated successfully!");
       navigate("/admin-dashboard");
