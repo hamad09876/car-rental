@@ -5,6 +5,7 @@ import "../styles/Cars.css";
 
 const Cars = () => {
   const [cars, setCars] = useState([]);
+  const [allCars, setAllCars] = useState([]); // 🔁 Store all cars for filter
   const [bookedCarNames, setBookedCarNames] = useState([]);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
@@ -19,38 +20,32 @@ const Cars = () => {
         ]);
 
         setCars(carsRes.data);
+        setAllCars(carsRes.data); // ✅ Save all cars for filter
 
-        // Get booked car names
         const bookedNames = bookingsRes.data
           .map((b) => b.car?.name)
           .filter(Boolean);
-
         setBookedCarNames(bookedNames);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
-    };ttp://localhost:5000/api/cars
+    };
 
     fetchData();
   }, []);
 
-  const handleFilter = async () => {
-    try {
-      const res = await axios.get("h");
-      const min = Number(minPrice) || 0;
-      const max = Number(maxPrice) || Infinity;
+  const handleFilter = () => {
+    const min = Number(minPrice) || 0;
+    const max = Number(maxPrice) || Infinity;
 
-      const filtered = res.data.filter((car) => {
-        const price = Number(car.rentPerDay || 0);
-        return price >= min && price <= max;
-      });
+    const filtered = allCars.filter((car) => {
+      const price = Number(car.rentPerDay || 0);
+      return price >= min && price <= max;
+    });
 
-      setCars(filtered);
-    } catch (err) {
-      console.error("Error filtering cars:", err);
-    }
+    setCars(filtered);
   };
 
   if (loading) {
