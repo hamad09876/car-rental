@@ -18,6 +18,8 @@ const AdminDashboard = () => {
   const [carFilters, setCarFilters] = useState({
     type: "all",
     sort: "newest",
+    priceSort: "none",
+    acFilter: "all",
   });
   
   // Booking filters state
@@ -94,11 +96,25 @@ const AdminDashboard = () => {
       filtered = filtered.filter(car => car.type === carFilters.type);
     }
     
-    // Apply sorting
+    // Apply AC filter
+    if (carFilters.acFilter !== "all") {
+      filtered = filtered.filter(car => 
+        carFilters.acFilter === "ac" ? car.airConditioned : !car.airConditioned
+      );
+    }
+    
+    // Apply sorting by date
     if (carFilters.sort === "newest") {
       filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    } else {
+    } else if (carFilters.sort === "oldest") {
       filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    }
+    
+    // Apply sorting by price
+    if (carFilters.priceSort === "highest") {
+      filtered.sort((a, b) => (b.rentPerDay || b.price) - (a.rentPerDay || a.price));
+    } else if (carFilters.priceSort === "lowest") {
+      filtered.sort((a, b) => (a.rentPerDay || a.price) - (b.rentPerDay || b.price));
     }
     
     return filtered;
@@ -172,7 +188,20 @@ const AdminDashboard = () => {
           </div>
 
           <div className="cars-filter">
-            <label className="cars-filter-label">Sort By</label>
+            <label className="cars-filter-label">AC Status</label>
+            <select
+              className="cars-filter-select"
+              value={carFilters.acFilter}
+              onChange={(e) => setCarFilters({...carFilters, acFilter: e.target.value})}
+            >
+              <option value="all">All Vehicles</option>
+              <option value="ac">AC Vehicles</option>
+              <option value="non-ac">Non-AC Vehicles</option>
+            </select>
+          </div>
+
+          <div className="cars-filter">
+            <label className="cars-filter-label">Sort By Date</label>
             <select
               className="cars-filter-select"
               value={carFilters.sort}
@@ -180,6 +209,19 @@ const AdminDashboard = () => {
             >
               <option value="newest">Newest First</option>
               <option value="oldest">Oldest First</option>
+            </select>
+          </div>
+
+          <div className="cars-filter">
+            <label className="cars-filter-label">Sort By Price</label>
+            <select
+              className="cars-filter-select"
+              value={carFilters.priceSort}
+              onChange={(e) => setCarFilters({...carFilters, priceSort: e.target.value})}
+            >
+              <option value="none">None</option>
+              <option value="highest">Highest First</option>
+              <option value="lowest">Lowest First</option>
             </select>
           </div>
         </div>
