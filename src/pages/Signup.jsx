@@ -15,7 +15,7 @@ function Signup() {
   const handleSignup = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.post('https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/users/signup', {
+      const res = await axios.post('https://car-rental-backend-1-6buw.onrender.com/api/users/signup', {
         name,
         email,
         password,

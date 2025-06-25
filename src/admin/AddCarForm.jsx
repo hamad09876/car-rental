@@ -55,7 +55,7 @@ const AddCarForm = () => {
     };
 
     try {
-      await axios.post("https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/cars", newCar);
+      await axios.post("https://car-rental-backend-1-6buw.onrender.com/api/cars", newCar);
       toast.success("🎉 VIP Car Added Successfully!");
 
       setTimeout(() => {

@@ -1,6 +1,6 @@
 // src/data/carData.js
-const API_URL = "https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/cars";
-const BOOKINGS_URL = "https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/bookings";
+const API_URL = "https://car-rental-backend-1-6buw.onrender.com/api/cars";
+const BOOKINGS_URL = "https://car-rental-backend-1-6buw.onrender.com/api/bookings";
 
 // -------------------- CAR APIs --------------------
 

@@ -14,8 +14,8 @@ const Cars = () => {
     const fetchData = async () => {
       try {
         const [carsRes, bookingsRes] = await Promise.all([
-          axios.get("https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/cars"),
-          axios.get("https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/bookings"),
+          axios.get("https://car-rental-backend-1-6buw.onrender.com/api/cars"),
+          axios.get("https://car-rental-backend-1-6buw.onrender.com/api/bookings"),
         ]);
 
         setCars(carsRes.data);

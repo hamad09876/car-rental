@@ -21,7 +21,7 @@ const BookingForm = () => {
     const carId = location.state?.carId;
     if (carId) {
       axios
-        .get(`https://c8e59ba2-bc33-4837-9759-b23d43a1dc76-00-2410258q572b7.sisko.replit.dev/api/cars/${carId}`)
+        .get(`https://car-rental-backend-1-6buw.onrender.com/api/cars/${carId}`)
         .then((res) => {
           setCar(res.data);
           setIsLoading(false);
