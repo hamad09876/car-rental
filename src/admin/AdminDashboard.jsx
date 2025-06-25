@@ -13,6 +13,18 @@ const AdminDashboard = () => {
   const [carData, setCarData] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  // Car filters state
+  const [carFilters, setCarFilters] = useState({
+    type: "all",
+    sort: "newest",
+  });
+  
+  // Booking filters state
+  const [bookingFilters, setBookingFilters] = useState({
+    status: "all",
+    sort: "newest",
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +57,12 @@ const AdminDashboard = () => {
     fetchData();
   }, []);
 
+  const handleLogout = () => {
+    // Clear admin auth token or session
+    localStorage.removeItem("adminToken");
+    navigate("/admin/login");
+  };
+
   const handleEditCar = (id) => {
     navigate(`/admin/edit/${id}`);
   };
@@ -67,14 +85,63 @@ const AdminDashboard = () => {
     }
   };
 
+  // Filter and sort cars
+  const getFilteredCars = () => {
+    let filtered = [...carData];
+    
+    // Apply type filter
+    if (carFilters.type !== "all") {
+      filtered = filtered.filter(car => car.type === carFilters.type);
+    }
+    
+    // Apply sorting
+    if (carFilters.sort === "newest") {
+      filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else {
+      filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    }
+    
+    return filtered;
+  };
+
+  // Filter and sort bookings
+  const getFilteredBookings = () => {
+    let filtered = [...bookings];
+    
+    // Apply status filter
+    if (bookingFilters.status !== "all") {
+      filtered = filtered.filter(booking => booking.paymentStatus === bookingFilters.status);
+    }
+    
+    // Apply sorting
+    if (bookingFilters.sort === "newest") {
+      filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else {
+      filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    }
+    
+    return filtered;
+  };
+
   if (loading) {
     return <div className="admin-loading">Loading luxury fleet data...</div>;
   }
 
+  const filteredCars = getFilteredCars();
+  const filteredBookings = getFilteredBookings();
+
+  // Get unique car types for filter dropdown
+  const carTypes = [...new Set(carData.map(car => car.type))];
+
   return (
     <div className="admin-dashboard-container">
       <div className="admin-header">
-        <div className="vip-admin-badge">ADMIN DASHBOARD</div>
+        <div className="admin-header-top">
+          <div className="vip-admin-badge">ADMIN DASHBOARD</div>
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>
+        </div>
         <h1 className="admin-title">Luxury Fleet Management</h1>
       </div>
 
@@ -89,61 +156,96 @@ const AdminDashboard = () => {
           <h3 className="section-title">Premium Fleet Inventory</h3>
         </div>
 
+        <div className="cars-filters">
+          <div className="cars-filter">
+            <label className="cars-filter-label">Vehicle Type</label>
+            <select
+              className="cars-filter-select"
+              value={carFilters.type}
+              onChange={(e) => setCarFilters({...carFilters, type: e.target.value})}
+            >
+              <option value="all">All Types</option>
+              {carTypes.map(type => (
+                <option key={type} value={type}>{type}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="cars-filter">
+            <label className="cars-filter-label">Sort By</label>
+            <select
+              className="cars-filter-select"
+              value={carFilters.sort}
+              onChange={(e) => setCarFilters({...carFilters, sort: e.target.value})}
+            >
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+            </select>
+          </div>
+        </div>
+
         <div className="cars-grid">
-          {carData.map((car) => (
-            <div key={car._id} className="car-card">
-              <div className="car-image-container">
-                <img
-                  src={car.images?.[0] || "https://via.placeholder.com/400x250?text=No+Image"}
-                  alt={car.model}
-                  className="car-image"
-                  onError={(e) => {
-                    e.target.src = "https://via.placeholder.com/400x250?text=Error";
-                  }}
-                />
-                <div className="car-price-tag">Rs. {car.rentPerDay || car.price}/day</div>
-              </div>
-
-              <div className="car-details">
-                <h4 className="car-name">{car.name}</h4>
-                <p className="car-model">{car.model}</p>
-
-                <div className="specs-grid">
-                  <div className="spec-item">
-                    <span className="spec-label">Fuel:</span>
-                    <span>{car.fuelAverage} km/L</span>
-                  </div>
-                  <div className="spec-item">
-                    <span className="spec-label">AC:</span>
-                    <span>{car.airConditioned ? "Yes" : "No"}</span>
-                  </div>
-                  <div className="spec-item">
-                    <span className="spec-label">Seats:</span>
-                    <span>{car.seatingCapacity || "-"}</span>
-                  </div>
-                  <div className="spec-item">
-                    <span className="spec-label">Type:</span>
-                    <span>{car.type || "-"}</span>
-                  </div>
-                </div>
-
-                <div className="button-group">
-                  <button
-                    onClick={() => handleEditCar(car._id)}
-                    className="edit-button"
-                  >
-                    ✏️ Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteCar(car._id)}
-                    className="delete-button"
-                  >
-                    🗑️ Delete
-                  </button>
-                </div>
-              </div>
+          {filteredCars.length === 0 ? (
+            <div className="no-cars-found">
+              <div className="no-cars-icon">🚫</div>
+              <p className="no-cars-text">No vehicles match your filters</p>
             </div>
-          ))}
+          ) : (
+            filteredCars.map((car) => (
+              <div key={car._id} className="car-card">
+                <div className="car-image-container">
+                  <img
+                    src={car.images?.[0] || "https://via.placeholder.com/400x250?text=No+Image"}
+                    alt={car.model}
+                    className="car-image"
+                    onError={(e) => {
+                      e.target.src = "https://via.placeholder.com/400x250?text=Error";
+                    }}
+                  />
+                  <div className="car-price-tag">Rs. {car.rentPerDay || car.price}/day</div>
+                </div>
+
+                <div className="car-details">
+                  <h4 className="car-name">{car.name}</h4>
+                  <p className="car-model">{car.model}</p>
+
+                  <div className="specs-grid">
+                    <div className="spec-item">
+                      <span className="spec-label">Fuel:</span>
+                      <span>{car.fuelAverage} km/L</span>
+                    </div>
+                    <div className="spec-item">
+                      <span className="spec-label">AC:</span>
+                      <span>{car.airConditioned ? "Yes" : "No"}</span>
+                    </div>
+                    <div className="spec-item">
+                      <span className="spec-label">Seats:</span>
+                      <span>{car.seatingCapacity || "-"}</span>
+                    </div>
+                    <div className="spec-item">
+                      <span className="spec-label">Type:</span>
+                      <span>{car.type || "-"}</span>
+                    </div>
+                  </div>
+
+                  <div className="button-group">
+                    <button
+                      onClick={() => handleEditCar(car._id)}
+                      className="edit-button"
+                    >
+                      ✏️ Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteCar(car._id)}
+                      className="delete-button"
+                    >
+                      🗑️ Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
 
@@ -159,7 +261,8 @@ const AdminDashboard = () => {
             <label className="vip-booking-filter-label">Status</label>
             <select
               className="vip-booking-filter-select"
-              defaultValue="all"
+              value={bookingFilters.status}
+              onChange={(e) => setBookingFilters({...bookingFilters, status: e.target.value})}
             >
               <option value="all">All Bookings</option>
               <option value="paid">Paid</option>
@@ -172,7 +275,8 @@ const AdminDashboard = () => {
             <label className="vip-booking-filter-label">Sort By</label>
             <select
               className="vip-booking-filter-select"
-              defaultValue="newest"
+              value={bookingFilters.sort}
+              onChange={(e) => setBookingFilters({...bookingFilters, sort: e.target.value})}
             >
               <option value="newest">Newest First</option>
               <option value="oldest">Oldest First</option>
@@ -180,14 +284,14 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {bookings.length === 0 ? (
+        {filteredBookings.length === 0 ? (
           <div className="vip-no-bookings">
             <div className="vip-no-bookings-icon">📭</div>
-            <p className="vip-no-bookings-text">No bookings found</p>
+            <p className="vip-no-bookings-text">No bookings match your filters</p>
           </div>
         ) : (
           <div className="vip-bookings-grid">
-            {bookings.map((booking) => (
+            {filteredBookings.map((booking) => (
               <div key={booking._id} className="vip-booking-card">
                 <div className="vip-booking-card-header">
                   <div>
