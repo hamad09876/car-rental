@@ -60,7 +60,7 @@ const AdminDashboard = () => {
   const handleLogout = () => {
     // Clear admin auth token or session
     localStorage.removeItem("adminToken");
-    navigate("/admin/login");
+    navigate("/admin-login");
   };
 
   const handleEditCar = (id) => {
